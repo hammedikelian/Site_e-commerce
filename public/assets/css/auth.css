@@ -1,0 +1,133 @@
+.auth-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.auth-toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.auth-toggle-buttons button {
+  background-color: #f1f3f5;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.auth-toggle-buttons button.active,
+.auth-toggle-buttons button:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.auth-form {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.auth-form.active {
+  display: block;
+  opacity: 1;
+}
+.auth-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 15px;
+  background-color: #f8f9fa;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 550px;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
+  transition: all 0.4s ease;
+}
+
+.auth-toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 12px;
+}
+
+.auth-toggle-buttons button {
+  background-color: #e9ecef;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #212529;
+  transition: all 0.3s ease;
+}
+
+.auth-toggle-buttons button.active,
+.auth-toggle-buttons button:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.auth-form {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.auth-form.active {
+  display: block;
+  opacity: 1;
+}
+
+.auth-form h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #212529;
+}
+
+.auth-form input.form-control {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.auth-form .btn {
+  font-weight: 600;
+  padding: 10px 0;
+  margin-top: 15px;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.switch-link a {
+  font-weight: 600;
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}

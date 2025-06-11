@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}La League Studio{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/assets/js/script.js" defer></script>
+  {% block styles %}{% endblock %}
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm header">
+    <div class="container">
+    <a class="navbar-brand fw-bold" href="?page=accueil">La League Studio</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="?page=accueil">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="?page=produits">Produits</a></li>
+
+
+        {% if app.session.user is defined %}
+
+        <li class="nav-item">
+         <a class="nav-link" href="#" id="openPanier"><i class="bi bi-cart3"></i> Panier</a>
+        </li>
+
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ app.session.user.prenom }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="?page=logout">Déconnexion</a></li>
+            </ul>
+            </li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="?page=login">Connexion</a></li>
+        {% endif %}
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer bg-light text-center py-4 mt-5">
+    <small>&copy; 2025 La-League-Studio. Tous droits réservés.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  {% block scripts %}{% endblock %}
+
+
+  <div id="panierPanel" class="panier-panel">
+  <div class="panier-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Votre panier</h5>
+    <button class="btn-close" id="closePanier" aria-label="Fermer"></button>
+  </div>
+  <div class="panier-body">
+    {% if panier is defined and panier|length > 0 %}
+      {% for item in panier %}
+        <div class="panier-item d-flex align-items-center mb-3">
+          <img src="/{{ item.image }}" alt="{{ item.nom }}" class="img-fluid panier-thumb me-3">
+          <div>
+            <strong>{{ item.nom }}</strong><br>
+            <div class="d-flex align-items-center gap-2">
+                <a href="#" class="btn btn-sm btn-outline-secondary px-2"
+                data-panier-action="diminuer" data-panier-id="{{ item.panier_id }}">−</a>
+
+                <span>{{ item.quantite }}</span>
+
+                <a href="#" class="btn btn-sm btn-outline-secondary px-2"
+                data-panier-action="augmenter" data-panier-id="{{ item.panier_id }}">+</a>
+            </div>
+            <small class="text-muted">{{ item.prix }} € / unité</small><br>
+            <a href="#" class="text-danger small"
+   data-panier-action="supprimer" data-panier-id="{{ item.panier_id }}">Supprimer</a>
+            </div>
+
+        </div>
+      {% endfor %}
+      <div class="panier-total mt-4">
+        <strong>Total : {{ total }} €</strong>
+        <a href="?page=valider" class="btn btn-primary w-100 mt-3">Valider la commande</a>
+      </div>
+    {% else %}
+      <p class="text-muted">Votre panier est vide.</p>
+    {% endif %}
+  </div>
+</div>
+<div id="panierOverlay" class="panier-overlay"></div>
+
+</body>
+</html>

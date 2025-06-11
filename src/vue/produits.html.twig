@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nos Produits - La League Studio{% endblock %}
+
+{% block content %}
+<section class="section bg-white py-5 fade-in">
+  <div class="container">
+    <h2 class="text-center mb-5">Nos produits</h2>
+    <div class="mb-5">
+  <form method="get" class="d-flex flex-wrap align-items-center justify-content-center gap-3">
+    <input type="hidden" name="page" value="produits">
+    
+    <div class="filter-select-wrapper">
+      <select name="marque" id="marque" class="form-select custom-select" onchange="this.form.submit()">
+        <option value="">Toutes les marques</option>
+        {% for m in marques %}
+          <option value="{{ m.marque }}" {% if m.marque == marqueActive %}selected{% endif %}>{{ m.marque }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </form>
+</div>
+
+
+    <div class="row g-4 justify-content-center">
+      {% for produit in produits %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card product-card">
+                <img src="/{{ produit.image }}" class="card-img-top" alt="{{ produit.nom }}">
+                <div class="card-body">
+                <h5 class="card-title">{{ produit.nom }}</h5>
+                <p class="card-text">{{ produit.description }}</p>
+                {% if produit.prix_promo > 0 %}
+                    <p class="fw-bold text-primary mb-0">
+                        <span class="text-muted text-decoration-line-through me-2">{{ produit.prix }} €</span>
+                        {{ produit.prix_promo }} €
+                    </p>
+                    {% else %}
+                    <p class="fw-bold text-primary">{{ produit.prix }} €</p>
+                    {% endif %}
+
+
+                {% if produit.stock > 0 %}
+            {% if app.session.user is defined %}
+              <a href="?page=panier&action=ajouter&id={{ produit.id }}" class="btn btn-outline-primary w-100">
+                <i class="bi bi-cart-plus me-2"></i> Ajouter au panier
+              </a>
+            {% else %}
+              <div class="alert alert-light border text-center py-2 small">
+                <i class="bi bi-person-circle fs-4 d-block mb-1 text-secondary"></i>
+                <span class="d-block mb-2">Veuillez vous connecter pour acheter</span>
+                <a href="?page=login" class="btn btn-sm btn-primary">
+                  <i class="bi bi-box-arrow-in-right me-1"></i> Connexion
+                </a>
+              </div>
+            {% endif %}
+          {% else %}
+            <button class="btn btn-outline-secondary w-100" disabled>
+              <i class="bi bi-exclamation-triangle me-1"></i> Rupture de stock
+            </button>
+          {% endif %}
+
+
+            </div>
+            </div>
+            </div>
+
+      {% else %}
+        <p class="text-center">Aucun produit pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
